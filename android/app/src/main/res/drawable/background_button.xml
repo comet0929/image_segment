@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/button_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#D2B48C" /> <!-- Background color -->
+    <size android:width="100dp" android:height="100dp" />
+    <stroke
+        android:width="5dp"
+        android:color="#000000" /> <!-- Border color and size -->
+    <corners android:radius="50dp" /> <!-- Makes the shape circular -->
+</shape>
