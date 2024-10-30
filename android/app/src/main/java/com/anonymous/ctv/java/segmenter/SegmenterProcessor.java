@@ -18,17 +18,18 @@ import com.google.mlkit.vision.segmentation.selfie.SelfieSegmenterOptions;
 public class SegmenterProcessor extends VisionProcessorBase<SegmentationMask> {
 
     private static final String TAG = "SegmenterProcessor";
-
+    private final Context context;
     private final Segmenter segmenter;
 
     private final String img;
-
+    private int[] bg_colors = new int[0];
     public SegmenterProcessor(Context context, String img) {
         this(context, /* isStreamMode= */ true, img);
     }
 
     public SegmenterProcessor(Context context, boolean isStreamMode, String img) {
         super(context);
+        this.context = context;
         this.img = img;
         SelfieSegmenterOptions.Builder optionsBuilder = new SelfieSegmenterOptions.Builder();
         optionsBuilder.setDetectorMode(
@@ -39,8 +40,6 @@ public class SegmenterProcessor extends VisionProcessorBase<SegmentationMask> {
 
         SelfieSegmenterOptions options = optionsBuilder.build();
         segmenter = Segmentation.getClient(options);
-        Log.d(TAG, "SegmenterProcessor created with option: " + img);
-
     }
 
     @Override
@@ -51,7 +50,7 @@ public class SegmenterProcessor extends VisionProcessorBase<SegmentationMask> {
     @Override
     protected void onSuccess(
             @NonNull SegmentationMask segmentationMask, @NonNull GraphicOverlay graphicOverlay) {
-        graphicOverlay.add(new SegmentationGraphic(graphicOverlay, segmentationMask, img));
+        graphicOverlay.add(new SegmentationGraphic(graphicOverlay, segmentationMask, img, context));
     }
 
     @Override
